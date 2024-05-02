@@ -1,7 +1,7 @@
-Hi Mohamed this is the first mail
+Hi there this is the inventory web, please do'not share your OTP with any one.
 <br>
 sincerly,
 <br>
-    3bghany 'bymasy'
+    3bghany
     <br>
-    <b>OTP is:</b>{{$OTP}}
+    <b>OTP is: </b>{{$OTP}}
