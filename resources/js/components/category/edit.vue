@@ -26,9 +26,9 @@
          <div class="form-group">
   
            <div class="form-row">
-             <div class="col-md-6">
+             <div class="col-md-12">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Full Name" v-model="category.name">
-        <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+        <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
              </div>
            </div>
          </div>
@@ -86,7 +86,7 @@
         Toast.fire({ icon: "success", title: "Category updated successfully"});
         this.$router.push("/categories");
       })
-      .catch(error => console.log(error.response.data))
+      .catch(error => this.errors=error.response.data.errors)
       },
 
     }

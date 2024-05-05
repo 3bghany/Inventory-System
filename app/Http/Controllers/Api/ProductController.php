@@ -52,6 +52,9 @@ class ProductController extends Controller
             'root' => 'required',
             'buying_date' => 'required',
             'quantity' => 'required',
+        ],[
+            'supplier_id.required' => 'Choose one of the Suppliers',
+            'category_id.required' => 'Choose one of the Categories',
         ]);
         $product = new Product;
         $product->name = $request->name;
@@ -113,13 +116,16 @@ class ProductController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required|max:255',
-            'category_id' => 'required|integer',
-            'supplier_id' => 'required|integer',
+            'category_id' => 'required',
+            'supplier_id' => 'required',
             'buying_price' => 'required|integer',
             'selling_price' => 'required|integer',
             'root' => 'required',
             'buying_date' => 'required',
             'quantity' => 'required',
+        ],[
+            'supplier_id.required' => 'Choose one of the Suppliers',
+            'category_id.required' => 'Choose one of the Categories',
         ]);
         $Product = Product::find($id);
         if (!strcasecmp($Product->code, $request->code)) {

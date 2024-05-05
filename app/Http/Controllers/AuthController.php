@@ -13,6 +13,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\verifyEmailResource;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\verifyingMail;
+use Illuminate\Support\Facades\Crypt;
 
 
 class AuthController extends Controller
@@ -63,11 +64,11 @@ class AuthController extends Controller
                 ['OTP' => $OTP, 'userId' => $id]);
 
             return response()->json([
+                'type' => 'verify',
                 'status' => 'warning',
                 'message' => 'Please verify your email',
                 'data' => $id,
             ], 422);
-        // return $this->login($request);
     }
     public function verification(Request $request){
         $validation = $request->validate([
@@ -108,15 +109,17 @@ class AuthController extends Controller
                     return $this->respondWithToken($token);
                 }
                 return response()->json([
+                    'type' => 'verify',
                     'status' => 'warning',
                     'message' => 'Please verify your email',
                     'data' =>$userRecord->id,
                 ], 422);
             } else {
                 return response()->json([
+                    'type' => 'incorrect',
                     'status' => 'error',
                     'message' => 'Email or password is incorrect',
-                ]);
+                ],422);
             }
             
 
@@ -131,7 +134,7 @@ class AuthController extends Controller
     
     public function getUserByToken(Request $request){
         
-        $token = \Laravel\Sanctum\PersonalAccessToken::findToken($request->token);
+        $token = \Laravel\Sanctum\PersonalAccessToken::findToken(Crypt::decryptString($request->token));
         $userId = $token->tokenable_id;
         
         return response()->json([
@@ -148,7 +151,7 @@ class AuthController extends Controller
         return response()->json([
             'status' =>'success',
             'message' => 'logged in successfully',
-            'access_token' => $token,
+            'access_token' => Crypt::encryptString($token),
             'data' => Auth::user(),
         ]);
     }

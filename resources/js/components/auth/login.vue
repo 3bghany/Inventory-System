@@ -14,9 +14,11 @@
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
                         placeholder="Enter Email Address" v-model="form.email">
+                      <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" v-model="form.password">
+                      <small class="text-danger" v-if="errors.password"> {{ errors.password[0] }} </small>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
@@ -48,7 +50,6 @@
 </template>
 
 <script>
-// import { eventBus } from "../../app";
 export default{
   created(){
     if(User.loggedIn()){
@@ -63,7 +64,8 @@ export default{
       email:null,
       password:null,
       id:null,
-    }
+    },
+    errors:{},
   }
 },
 methods:{
@@ -73,16 +75,26 @@ methods:{
       User.responseAfterLogin(res)
       this.$emit("refreshUserName");
       this.$router.push('/home')
-      Toast.fire({ icon: res.data.status, title: res.data.message});
+      Toast.fire({ icon: res.data.status, title: res.data.message}); 
     })
     .catch(error => {
+    if(error.response.data.errors)
+      this.errors=error.response.data.errors;
+    else
+    this.errors={};
+      if(error.response.data.type == 'verify'){
       Toast.fire({ icon: error.response.data.status, title: error.response.data.message});
-      this.form.id=error.response.data.data;
+        this.form.id=error.response.data.data;
       axios.post('/api/sendVerificationCode',this.form)
         .then(() => {
         })
         .catch();
       this.$router.push('/verifyEmail/'+error.response.data.data)
+      }
+      if(error.response.data.type == 'incorrect'){
+      Toast.fire({ icon: error.response.data.status, title: error.response.data.message});
+      }
+
     })
   }
 }

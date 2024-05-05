@@ -5,13 +5,13 @@
                 <h1 class="h3 mb-0 text-gray-800">POS Dashboard</h1>
             </div>
             <Teleport to="body">
-                <div class="modl" v-if="isOpen">
+                <div class="modl" v-if="openModal">
                     <div class="modal-dialog" style="top: 130px;max-width: 600px;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Add Customer</h5>
                                 <button type="button" class="btn-close" style="font-size: 20px;"
-                                    @click="isOpen = false"><strong>×</strong></button>
+                                    @click="openModal = false,this.customerFormErrors={}"><strong>×</strong></button>
                             </div>
                             <div class="modal-body">
                                 <form class="user">
@@ -22,14 +22,14 @@
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Full Name" v-model="form.name">
-                                                <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+                                                <small class="text-danger" v-if="customerFormErrors.name"> {{ customerFormErrors.name[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="email" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Email" v-model="form.email">
-                                                <!-- <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small> -->
+                                                <small class="text-danger" v-if="customerFormErrors.email"> {{ customerFormErrors.email[0] }} </small>
                                             </div>
 
                                         </div>
@@ -42,14 +42,14 @@
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Address" v-model="form.address">
-                                                <!-- <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small> -->
+                                                <small class="text-danger" v-if="customerFormErrors.address"> {{ customerFormErrors.address[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter phone Number" v-model="form.phone">
-                                                <!-- <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small> -->
+                                                <small class="text-danger" v-if="customerFormErrors.phone"> {{ customerFormErrors.phone[0] }} </small>
                                             </div>
 
                                         </div>
@@ -57,7 +57,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" @click="isOpen = false"
+                                <button type="button" class="btn btn-secondary" @click="openModal = false,this.customerFormErrors={}"
                                     style="color: #ffffff;">Close</button>
                                 <button type="button" class="btn btn-primary" @click="insertCustomer()"
                                     style="color: #ffffff;">Add</button>
@@ -73,7 +73,7 @@
                     <div class="card mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Cart</h6>
-                            <button type="button" class="btn btn-info" @click="isOpen = true"
+                            <button type="button" class="btn btn-info" @click="openModal = true"
                                 style="color: #ffffff;">Add
                                 Customer</button>
                         </div>
@@ -168,11 +168,20 @@
                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
                                     role="tab" aria-controls="pills-home" aria-selected="true">All Products</a>
                             </li>
-                            <li class="nav-item" v-for="category in categories">
+                            <li class="nav-item" v-for="category in categories.slice(0, 5)">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
                                     role="tab" aria-controls="pills-profile" aria-selected="false"
                                     @click="SubProducts(category.id), searchSubProducts = '',catPage = 1">{{ category.name }}</a>
                             </li>
+                            <li class="nav-item dropdown" v-if="categories.length>5">
+    <a style="color:black;" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown</a>
+    <div class="dropdown-menu">
+      <a id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+        role="tab" aria-controls="pills-profile" class="dropdown-item"
+         v-for="category in categories.slice(5, categories.length)"
+       @click="SubProducts(category.id), searchSubProducts = '',catPage = 1">{{category.name}}</a>
+    </div>
+  </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -204,8 +213,7 @@
                                                     <div class="card-body">
                                                         <h6 class="card-title recordOverflow">{{ product.name }}</h6>
                                                         <span class="badge badge-success recordOverflow"
-                                                            v-if="product.quantity >= 1">Available {{
-                    product.quantity }}</span>
+                                                            v-if="product.quantity >= 1">Available {{product.quantity }}</span>
                                                         <span class="badge badge-danger" v-else="">Stock Out</span>
                                                     </div>
                                                 </div>
@@ -296,7 +304,7 @@ export default {
             pay: 0,
             due: 0,
             payBy: 'HandCash',
-            isOpen: false,
+            openModal: false,
             page: 1,
             catPage: 1,
             length: null,
@@ -308,6 +316,7 @@ export default {
                 phone: null,
                 address: null,
             },
+            customerFormErrors:{},
         }
     },
     computed: {
@@ -381,8 +390,9 @@ export default {
             //     .then(({ data }) => { this.subProducts = data.data })
             //     .catch()
 
-
             this.subProducts = this.products.filter((product) => product.category_id == id);
+            console.log(this.subProducts)
+
         },
         AddToCart(id) {
             axios.get('/api/cart/AddToCart/' + id)
@@ -437,13 +447,13 @@ export default {
                 .then(() => {
                     Toast.fire({ icon: "success", title: "Customer added successfully" });
                     this.allCustomers();
-                    this.isOpen = false;
+                    this.openModal = false;
                     this.form.name = null;
                     this.form.email = null;
                     this.form.address = null;
                     this.form.phone = null;
                 })
-                .catch(error => console.log(error.response.data))
+                .catch(error => this.customerFormErrors=error.response.data.errors)
         },
         paginationProducts(){
             let begin= (this.page - 1)* this.records

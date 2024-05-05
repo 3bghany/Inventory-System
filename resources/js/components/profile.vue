@@ -6,7 +6,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Add Customer</h5>
-                                <button @click="showModal=false" type="button" class="btn-close" style="font-size: 20px;"
+                                <button @click="showModal=false,errors={}" type="button" class="btn-close" style="font-size: 20px;"
                                     ><strong>×</strong></button>
                             </div>
                             <div class="modal-body">
@@ -18,14 +18,14 @@
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Full Name" v-model="form.name">
-                                                <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+                                                <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="email" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Email" v-model="form.email">
-                                                <!-- <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small> -->
+                                                <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
                                             </div>
 
                                         </div>
@@ -38,20 +38,20 @@
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter Address" v-model="form.address">
-                                                <!-- <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small> -->
+                                                <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
                                                     placeholder="Enter phone Number" v-model="form.phone">
-                                                <!-- <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small> -->
+                                                <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                <button @click="showModal=false" type="button" class="btn btn-secondary" 
+                                <button @click="showModal=false,errors={}" type="button" class="btn btn-secondary" 
                                     style="color: #ffffff;">Close</button>
                                 <button type="submit" class="btn btn-primary" 
                                     style="color: #ffffff;">Update</button>
@@ -192,7 +192,7 @@ created(){
           this.showModal=false;
           this.GetUser();
         })
-        .catch(error => console.log(error.response.data))
+        .catch(error => this.errors=error.response.data.errors)
         },
     }
 }

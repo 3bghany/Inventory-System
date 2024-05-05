@@ -4,7 +4,7 @@
     <div>
   
   <div class="row" style="position: relative;left: 25px;">
-   <router-link to="/addCategory" class="btn btn-primary">All Categories </router-link>
+   <router-link to="/categories" class="btn btn-primary">All Categories </router-link>
     
   </div>
   
@@ -28,7 +28,7 @@
            <div class="form-row">
              <div class="col-md-12">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Category's Name" v-model="form.name">
-        <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+        <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
              </div> 
              
            </div>
@@ -81,7 +81,7 @@
         Toast.fire({ icon: "success", title: "Category added successfully"});
         this.$router.push("/categories");
       })
-      .catch(error => console.log(error.response.data))
+      .catch(error => this.errors=error.response.data.errors)
       },
     }
   }

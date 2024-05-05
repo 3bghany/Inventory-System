@@ -28,13 +28,13 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Full Name" v-model="supplier.name">
-        <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+        <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
           <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Email" v-model="supplier.email">
-          <!-- <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small> -->
+          <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
              </div>     
              
            </div>
@@ -46,13 +46,13 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Address" v-model="supplier.address">
-          <!-- <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small> -->
+          <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Shop Name" v-model="supplier.shopname">
-          <!-- <small class="text-danger" v-if="errors.sallery"> {{ errors.sallery[0] }} </small> -->
+          <small class="text-danger" v-if="errors.shopname"> {{ errors.shopname[0] }} </small>
              </div>     
              
            </div>
@@ -65,7 +65,7 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter phone Number" v-model="supplier.phone">
-          <!-- <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small> -->
+          <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small>
              </div>
   
   
@@ -83,7 +83,6 @@
              <div class="col-md-6">
     <input type="file" class="custom-file-input" id="customFile" @change="OnFileSelect">
   
-   <!-- <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small> -->
         <label class="custom-file-label" for="customFile">Choose file</label>
              </div>
   
@@ -172,7 +171,7 @@
         Toast.fire({ icon: "success", title: "supplier updated successfully"});
         this.$router.push("/suppliers");
       })
-      .catch(error => console.log(error.response.data))
+      .catch(error => this.errors=error.response.data.errors)
       },
 
     }

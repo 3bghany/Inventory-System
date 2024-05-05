@@ -47,7 +47,7 @@ class CartController extends Controller
 
 
     
-    // show all product in cart
+    // show all products in cart
     public function CartProducts(){
         return response()->json([
             'status'=>'success',

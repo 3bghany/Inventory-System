@@ -27,9 +27,10 @@
   
            <div class="form-row">
              <div class="col-md-12">
-              <label for="exampleInputFirstName"> Expense details</label>
+              <label for="exampleInputFirstName" style="margin-right: 10px;"> Expense details  </label>
+              <small class="text-danger" v-if="errors.details"> {{ errors.details[0] }} </small>
           <textarea style="min-height:100px;  max-height:200px;"  maxlength="255" class="form-control" id="exampleInputFirstName" placeholder="Details" v-model="expense.details"></textarea>
-        <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+        
              </div>    
              
            </div>
@@ -39,9 +40,10 @@
   
            <div class="form-row">
              <div class="col-md-12">
-              <label for="exampleInputFirstName"> Expense Amount</label>
+              <label for="exampleInputFirstName" style="margin-right: 10px;"> Expense Amount  </label>
+          <small class="text-danger" v-if="errors.amount"> {{ errors.amount[0] }} </small>
+
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter the Amount" v-model="expense.amount">
-          <!-- <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small> -->
              </div>
   
   
@@ -105,7 +107,7 @@
         Toast.fire({ icon: "success", title: "Expense updated successfully"});
         this.$router.push("/expenses");
       })
-      .catch(error => console.log(error.response.data))
+      .catch(error => this.errors=error.response.data.errors)
       },
 
     }

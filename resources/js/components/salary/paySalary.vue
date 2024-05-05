@@ -62,14 +62,14 @@
             <option value="November">November</option>
             <option value="December">December</option>
           </select>
-          <!-- <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small> -->
+          <small class="text-danger" v-if="errors.salary_month"> {{ errors.salary_month[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
         <label for="exampleInputFirstName">Salary</label>
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter salary" v-model="employee.salary">
-          <!-- <small class="text-danger" v-if="errors.salary"> {{ errors.salary[0] }} </small> -->
+          <small class="text-danger" v-if="errors.salary"> {{ errors.salary[0] }} </small>
              </div>     
              
            </div>
@@ -130,14 +130,8 @@
         this.$router.push("/employees");
       })
       .catch(error => {
-          this.errors = error.response.data.errors
-          if (this.errors.name) {
-            this.$notify({ type: "error", text: this.errors.name, duration: 2000, })
-          }
-          if (this.errors.salary) {
-            this.$notify({ type: "error", text: this.errors.salary, duration: 2000, })
-          }
-
+        this.errors=error.response.data.errors;
+          console.log(error.response.data.errors)
         })
       },
 

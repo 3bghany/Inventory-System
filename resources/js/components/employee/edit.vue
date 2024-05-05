@@ -28,13 +28,13 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Full Name" v-model="employee.name">
-        <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+        <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
           <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Email" v-model="employee.email">
-          <!-- <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small> -->
+          <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
              </div>     
              
            </div>
@@ -46,13 +46,13 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Address" v-model="employee.address">
-          <!-- <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small> -->
+          <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter salary" v-model="employee.salary">
-          <!-- <small class="text-danger" v-if="errors.salary"> {{ errors.salary[0] }} </small> -->
+          <small class="text-danger" v-if="errors.salary"> {{ errors.salary[0] }} </small>
              </div>     
              
            </div>
@@ -67,13 +67,13 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Enter Joining Date" v-model="employee.joining_date">
-   <!-- <small class="text-danger" v-if="errors.joining_date"> {{ errors.joining_date[0] }} </small> -->
+   <small class="text-danger" v-if="errors.joining_date"> {{ errors.joining_date[0] }} </small>
              </div>
   
   
       <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Nid" v-model="employee.nid">
-          <!-- <small class="text-danger" v-if="errors.nid"> {{ errors.nid[0] }} </small> -->
+          <small class="text-danger" v-if="errors.nid"> {{ errors.nid[0] }} </small>
              </div>     
              
            </div>
@@ -86,7 +86,7 @@
            <div class="form-row">
              <div class="col-md-6">
           <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter phone Number" v-model="employee.phone">
-          <!-- <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small> -->
+          <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small>
              </div>
   
   
@@ -104,7 +104,7 @@
              <div class="col-md-6">
     <input type="file" class="custom-file-input" id="customFile" @change="OnFileSelect">
   
-   <!-- <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small> -->
+   <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small>
         <label class="custom-file-label" for="customFile">Choose file</label>
              </div>
   
@@ -195,28 +195,7 @@
         Toast.fire({ icon: "success", title: "employee updated successfully"});
         this.$router.push("/employees");
       })
-      .catch(error => {
-          this.errors = error.response.data.errors
-          if (this.errors.email) {
-            this.$notify({ type: "error", text: this.errors.email, duration: 2000, })
-          }
-          if (this.errors.joining_date) {
-            this.$notify({ type: "error", text: this.errors.joining_date, duration: 2000, })
-          }
-          if (this.errors.address) {
-            this.$notify({ type: "error", text: this.errors.address, duration: 2000, })
-          } if (this.errors.name) {
-            this.$notify({ type: "error", text: this.errors.name, duration: 2000, })
-          } if (this.errors.phone) {
-            this.$notify({ type: "error", text: this.errors.phone, duration: 2000, })
-          } if (this.errors.salary) {
-            this.$notify({ type: "error", text: this.errors.salary, duration: 2000, })
-          }
-          if (this.errors.nid) {
-            this.$notify({ type: "error", text: this.errors.nid, duration: 2000, })
-          }
-
-        })
+      .catch(error => {this.errors=error.response.data.errors})
       },
 
     }

@@ -24,13 +24,13 @@
                         <div class="col-md-6">
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Enter Full Name" v-model="form.name" />
-                          <!-- <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Enter Product code" v-model="form.code" />
-                          <!-- <small class="text-danger" v-if="errors.code"> {{ errors.code[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.code"> {{ errors.code[0] }} </small>
                         </div>
                       </div>
                     </div>
@@ -43,6 +43,7 @@
                             <option selected>Choose from here</option>
                             <option v-for="category in categories" :value="category.id" >{{ category.name }}</option>
                           </select>
+                          <small class="text-danger" v-if="errors.category_id"> {{ errors.category_id[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
@@ -51,6 +52,7 @@
                             <option selected>Choose from here</option>
                             <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.name }}</option>
                           </select>
+                          <small class="text-danger" v-if="errors.supplier_id"> {{ errors.supplier_id[0] }} </small>
                         </div>
                       </div>
                     </div>
@@ -60,21 +62,21 @@
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Enter Product Root" v-model="form.root" />
-                          <!-- <small class="text-danger" v-if="errors.root"> {{ errors.root[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.root"> {{ errors.root[0] }} </small>
                         </div>
 
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Product Buying Price" v-model="form.buying_price
                     " />
-                          <!-- <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
                         </div>
 
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Product Selling Price" v-model="form.selling_price
                     " />
-                          <!-- <small class="text-danger" v-if="errors.selling_price"> {{ errors.selling_price[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.selling_price"> {{ errors.selling_price[0] }} </small>
                         </div>
                       </div>
                     </div>
@@ -86,14 +88,14 @@
                           <input type="date" class="form-control" id="exampleInputFirstName"
                             placeholder="Enter Joining Date" v-model="form.buying_date
                     " />
-                          <!-- <small class="text-danger" v-if="errors.buying_date"> {{ errors.buying_date[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.buying_date"> {{ errors.buying_date[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
                           <label for="exampleFormControlSelect1">Product Quantity</label>
                           <input type="text" class="form-control" id="exampleInputFirstName"
                             placeholder="Product Quantity" v-model="form.quantity" />
-                          <!-- <small class="text-danger" v-if="errors.quantity"> {{ errors.quantity[0] }} </small> -->
+                          <small class="text-danger" v-if="errors.quantity"> {{ errors.quantity[0] }} </small>
                         </div>
                       </div>
                     </div>
@@ -102,7 +104,6 @@
                         <div class="col-md-6">
                           <input type="file" class="custom-file-input" id="customFile" @change="OnFileSelect" />
 
-                          <!-- <small class="text-danger" v-if="errors.photo"> {{ errors.photo[0] }} </small> -->
                           <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
 
@@ -214,7 +215,7 @@ export default {
           });
           this.$router.push("/products");
         })
-        .catch((error) => console.log(error.response.data));
+        .catch((error) => this.errors=error.response.data.errors);
     },
   },
 };
