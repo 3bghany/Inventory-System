@@ -5,7 +5,7 @@
                     <div class="modal-dialog" style="top: 130px;max-width: 600px;">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Add Customer</h5>
+                                <h5 class="modal-title">{{ $t("main.Update Profile") }}</h5>
                                 <button @click="showModal=false,errors={}" type="button" class="btn-close" style="font-size: 20px;"
                                     ><strong>×</strong></button>
                             </div>
@@ -17,15 +17,14 @@
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Full Name" v-model="form.name">
+                                                :placeholder="$t('main.Enter')+' '+$t('main.Full Name')" v-model="form.name">
                                                 <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
-                                                <input type="email" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Email" v-model="form.email">
-                                                <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
+                                                <input disabled type="email" class="form-control" id="exampleInputFirstName"
+                                                :placeholder="$t('main.Enter')+' '+$t('main.Email')" v-model="form.email">
                                             </div>
 
                                         </div>
@@ -37,14 +36,14 @@
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Address" v-model="form.address">
+                                                :placeholder=" $t('main.Enter')+' '+$t('main.Address')" v-model="form.address">
                                                 <small class="text-danger" v-if="errors.address"> {{ errors.address[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter phone Number" v-model="form.phone">
+                                                :placeholder=" $t('main.Enter')+' '+$t('main.Phone')+' '+$t('main.Number')" v-model="form.phone">
                                                 <small class="text-danger" v-if="errors.phone"> {{ errors.phone[0] }} </small>
                                             </div>
 
@@ -52,9 +51,9 @@
                                     </div>
                                     <div class="modal-footer">
                                 <button @click="showModal=false,errors={}" type="button" class="btn btn-secondary" 
-                                    style="color: #ffffff;">Close</button>
+                                    style="color: #ffffff;">{{ $t("main.Close") }}</button>
                                 <button type="submit" class="btn btn-primary" 
-                                    style="color: #ffffff;">Update</button>
+                                    style="color: #ffffff;">{{ $t("main.Update") }}</button>
                             </div>
                                 </form>
                             </div>
@@ -84,7 +83,7 @@
 <div class="card-body">
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Full Name</h6>
+<h6 class="mb-0">{{ $t("main.Full Name") }}</h6>
 </div>
 <div class="col-sm-9 ">
 {{ user.name}}
@@ -93,7 +92,7 @@
 <hr>
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Email</h6>
+<h6 class="mb-0">{{ $t("main.Email") }}</h6>
 </div>
 <div class="col-sm-9 ">
 {{ user.email}}
@@ -102,7 +101,7 @@
 <hr>
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Phone</h6>
+<h6 class="mb-0">{{ $t("main.Phone") }}</h6>
 </div>
 <div class="col-sm-9 ">
 {{  (user.phone) ? user.phone: '01xxxxxxxxx' }}
@@ -111,7 +110,7 @@
 <hr>
 <div class="row">
 <div class="col-sm-3">
-<h6 class="mb-0">Address</h6>
+<h6 class="mb-0">{{ $t("main.Address") }}</h6>
 </div>
 <div class="col-sm-9 ">
     {{  (user.address) ? user.address: 'Not specified yet' }}
@@ -119,8 +118,17 @@
 </div>
 <hr>
 <div class="row">
+<div class="col-sm-3">
+<h6 class="mb-0">{{ $t("main.Password") }}</h6>
+</div>
+<div class="col-sm-9 ">
+    ********
+</div>
+</div>
+<hr>
+<div class="row">
 <div class="col-sm-12">
-    <button  @click="openModal()" class="btn btn-sm btn-primary">Edit</button>
+    <button  @click="openModal()" class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</button>
 </div>
 </div>
 </div>
@@ -187,10 +195,12 @@ created(){
         },
         updateProfile(){
         axios.put('/api/updateProfile/' + this.form.id, this.form)
-        .then(() => {
-          Toast.fire({ icon: "success", title: "profile updated successfully" });
+        .then(({data}) => {
+          Toast.fire({ icon: data.status, title: data.message });
           this.showModal=false;
           this.GetUser();
+          console.log(data.data[0].name);
+          User.updateUserName(data.data[0].name)
         })
         .catch(error => this.errors=error.response.data.errors)
         },

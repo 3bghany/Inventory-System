@@ -2,12 +2,13 @@
   <div>
 
     <div class="row" style="position: relative;left: 25px;">
-      <router-link to="/addEmployee" class="btn btn-primary">Add Employee </router-link>
+      <router-link to="/addEmployee" class="btn btn-primary">{{ $t("main.Add Employee") }} </router-link>
 
     </div>
 
     <br>
-    <input type="text" v-model="searchTerm" class="form-control" style="width: 500px;" placeholder="Search by Name, Salary, Phone, Joining Date">
+    <input type="text" v-model="searchTerm" class="form-control" style="width: 500px;" 
+    :placeholder=" $t('main.Search by')+' '+$t('main.Name')+', '+$t('main.Salary')+', '+$t('main.Phone')+', '+$t('main.Joining Date')">
     <br>
 
     <div class="row justify-content-center">
@@ -17,19 +18,19 @@
             <!-- Simple Tables -->
             <div class="card">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Employee List") }}</h6>
               </div>
               <div class="table-responsive">
                 <table class="table align-items-center table-flush">
                   <thead class="thead-light">
                     <tr>
-                      <th>Name</th>
-                      <th>Photo</th>
-                      <th>Phone</th>
-                      <th>Sallery</th>
-                      <th>Joining Date</th>
-                      <th>Action</th>
-                      <th>Sallery Payment</th>
+                      <th>{{ $t("main.Name") }}</th>
+                      <th>{{ $t("main.Photo") }}</th>
+                      <th>{{ $t("main.Phone") }}</th>
+                      <th>{{ $t("main.Salary") }}</th>
+                      <th>{{ $t("main.Joining Date") }} Date</th>
+                      <th>{{ $t("main.Action") }}</th>
+                      <th>{{ $t("main.Salary Payment") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -41,13 +42,13 @@
                       <td>{{ employee.joining_date }}</td>
                       <td>
                         <router-link :to="{ path: '/editEmployee/' + employee.id }"
-                          class="btn btn-sm btn-primary">Edit</router-link>
+                          class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</router-link>
 
                         <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger green del"
-                          style="color: #ffffff;">Delete</a>
+                          style="color: #ffffff;">{{ $t("main.Delete") }}</a>
                       </td>
                       <td><router-link :to="{ path: '/paySalary/' + employee.id }" class="btn btn-bg"
-                          style="background-color: #66bb6a; color: #ffffff; width:120px;">Pay</router-link></td>
+                          style="background-color: #66bb6a; color: #ffffff; width:120px;">{{ $t("main.Pay") }}</router-link></td>
 
                     </tr>
 

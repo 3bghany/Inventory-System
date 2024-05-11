@@ -1,0 +1,31 @@
+<?php
+return[
+    'Dashboard' => 'Panel',
+    'POS' => 'punto de venta',
+    'Cart' => 'Carro',
+    'Add Customer' => 'Agregar cliente',
+    'Products in the Stock' => 'Productos en stock',
+    'All Products' => 'Todos los productos',
+    'Name' => 'Nombre',
+    'Qty' => 'Cantidad',
+    'Unit' => 'Unidad',
+    'Total' => 'Total',
+    'Action' => 'Acción',
+    'Dropdown' => 'Desplegable',
+    'Total Quantity' => 'Cantidad total',
+    'Sub Total' => 'Subtotal',
+    'Vat' => 'IVA',
+    'Customer Name' => 'Nombre del cliente',
+    'Pay' => 'Pagar',
+    'Due' => 'Pendiente',
+    'Pay By' => 'Pagado por',
+    'HandCash' => 'Efectivo en mano',
+    'Cheaqe' => 'barato',
+    'GiftCard' => 'Tarjeta de regalo',
+    'Add' => 'Agregar',
+    'Total Price' => 'Precio total',
+    'View' => 'Vista',
+    'Unit Price' => 'Precio unitario',
+
+]
+?>

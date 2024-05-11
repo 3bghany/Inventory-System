@@ -2,11 +2,12 @@
   <div>
 
 <div class="row" style="position: relative;left: 25px;">
- <router-link to="/addProduct" class="btn btn-primary">Add Product </router-link>
+ <router-link to="/addProduct" class="btn btn-primary">{{ $t("main.Add Product") }} </router-link>
   
 </div>
 <br>
-<input type="text" v-model="searchTerm" class="form-control" style="width: 500px;position: relative;left: 15px;" placeholder="Search by Name, Category, Code, Price">
+<input type="text" v-model="searchTerm" class="form-control" style="width: 500px;position: relative;left: 15px;" 
+:placeholder=" $t('main.Search by')+' '+$t('main.Name')+', '+$t('main.Category')+', '+$t('main.Code')+', '+$t('main.Price')">
 
 <br>
 
@@ -17,14 +18,14 @@
               <!-- DataTable with Hover -->
           <div class="col-lg-12">
             <div class="card mb-4">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Stock</h6>
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="z-index: 1;width: 150px;">
+                <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Stock") }}</h6>
               </div>
               <div class="text-center" v-if="recordsLength>1">
   <v-container style="position: absolute;top: -25px;">
     <v-row justify="center">
       <v-col cols="8">
-        <v-container class="max-width">
+        <v-container class="max-width" style="height: 0px;">
           <v-pagination
             v-model="page"
             :length="recordsLength"
@@ -52,26 +53,26 @@
                 <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                   <thead class="thead-light">
                     <tr>
-                      <th>Name</th>
-                        <th>Code</th>
-                        <th>Photo</th>
-                        <th>Category</th>
-                        <th>Selling Price</th>
-                        <th>Status</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
+                      <th>{{ $t("main.Name") }}</th>
+                        <th>{{ $t("main.Code") }}</th>
+                        <th>{{ $t("main.Photo") }}</th>
+                        <th>{{ $t("main.Category") }}</th>
+                        <th>{{ $t("main.Selling Price") }}</th>
+                        <th>{{ $t("main.Status") }}</th>
+                        <th>{{ $t("main.Quantity") }}</th>
+                        <th>{{ $t("main.Action") }}</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                        <th>Code</th>
-                        <th>Photo</th>
-                        <th>Category</th>
-                        <th>Selling Price</th>
-                        <th>Status</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
+                      <th>{{ $t("main.Name") }}</th>
+                        <th>{{ $t("main.Code") }}</th>
+                        <th>{{ $t("main.Photo") }}</th>
+                        <th>{{ $t("main.Category") }}</th>
+                        <th>{{ $t("main.Selling Price") }}</th>
+                        <th>{{ $t("main.Status") }}</th>
+                        <th>{{ $t("main.Quantity") }}</th>
+                        <th>{{ $t("main.Action") }}</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -82,11 +83,11 @@
                         <td><span class="recOverflow" style="width: 100px;">{{ product.category_name }}</span></td>
                         <td><span class="recOverflow" style="width: 100px;">{{ product.selling_price }} $</span></td>
                         <td> <span class="badge badge-success"
-                                                            v-if="product.quantity >= 1">Available</span>
-                                                        <span class="badge badge-danger " v-else="">Stock Out</span></td>
+                                                            v-if="product.quantity >= 1">{{ $t("main.Available") }}</span>
+                                                        <span class="badge badge-danger " v-else="">{{ $t("main.Stock Out") }}</span></td>
                         <td ><span class="recOverflow" style="width: 100px;">{{ product.quantity }}</span></td>
             <td>
-   <router-link :to="{path:'/editProduct/'+product.id}" class="btn btn-sm btn-primary">Edit</router-link>
+   <router-link :to="{path:'/editProduct/'+product.id}" class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</router-link>
             </td>
                     </tr>
                   </tbody>

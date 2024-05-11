@@ -5,7 +5,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import login from "./components/auth/login.vue"
 import register from "./components/auth/register.vue"
 import forgotPassword from "./components/auth/forgotPassword.vue"
-import verifyEmail from "./components/auth/verifyPassword.vue"
+import verifyEmail from "./components/auth/verifyEmail.vue"
 
 //Employee
 import addEmployee from "./components/employee/create.vue"

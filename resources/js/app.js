@@ -1,6 +1,7 @@
 import './bootstrap';
 
 import { createApp } from 'vue'
+import { i18nVue } from 'laravel-vue-i18n'
 import app from "./components/app.vue"
 import router from "./routes.js"
 import User from "./Helpers/User.js"
@@ -39,5 +40,10 @@ const Toast = Swal.mixin({
 
   window.Toast=Toast
 
-createApp(app).use(router).use(Notifications).use(vuetify).mount('#app')
+createApp(app).use(router).use(Notifications).use(vuetify).use(i18nVue, {
+  resolve: async lang => {
+      const langs = import.meta.glob('../../lang/*.json');
+      return await langs[`../../lang/${lang}.json`]();
+  }
+}).mount('#app')
 

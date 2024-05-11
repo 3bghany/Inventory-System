@@ -1,4 +1,5 @@
 <template>
+  
     <div >
     <div class="row justify-content-center">
       <div class="col-xl-10 col-lg-12 col-md-9">
@@ -8,36 +9,36 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Login</h1>
+                    <h1 class="h4 text-gray-900 mb-4">{{ $t("auth.Login") }}</h1>
+                    
                   </div>
                   <form class="user" @submit.prevent="login">
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
-                        placeholder="Enter Email Address" v-model="form.email">
+                        :placeholder="$t('main.Email')" v-model="form.email">
                       <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" v-model="form.password">
+                      <input type="password" class="form-control" id="exampleInputPassword" :placeholder="$t('main.Password')" v-model="form.password">
                       <small class="text-danger" v-if="errors.password"> {{ errors.password[0] }} </small>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember
-                          Me</label>
+                        <label class="custom-control-label" for="customCheck">{{ $t("auth.Remember Me") }}</label>
                       </div>
                     </div>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block" style="color: #ffffff;">Login</button>
+                      <button type="submit" class="btn btn-primary btn-block" style="color: #ffffff;">{{ $t("auth.Login") }}</button>
                     </div>
                     <hr>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <router-link to="/register" class="font-weight-bold small">Create an Account!</router-link>
+                    <router-link to="/register" class="font-weight-bold small">{{ $t("auth.Create an Account!") }}</router-link>
                   </div>
                   <div class="text-center">
-                    <router-link to="/forgotPassword" class="font-weight-bold small">Forgotten password?</router-link>
+                    <router-link to="/forgotPassword" class="font-weight-bold small">{{ $t("auth.Forgotten password?") }}</router-link>
                   </div>
                 </div>
               </div>
@@ -83,8 +84,9 @@ methods:{
     else
     this.errors={};
       if(error.response.data.type == 'verify'){
-      Toast.fire({ icon: error.response.data.status, title: error.response.data.message});
-        this.form.id=error.response.data.data;
+      Toast.fire({ icon: 'warning', title: error.response.data.message});
+        this.form.id=error.response.data;
+        console.log(error.response.data.data)
       axios.post('/api/sendVerificationCode',this.form)
         .then(() => {
         })

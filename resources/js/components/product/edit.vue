@@ -4,7 +4,7 @@
   <div>
 
     <div class="row" style="position: relative;left: 25px;">
-      <router-link to="/products" class="btn btn-primary">All Products </router-link>
+      <router-link to="/products" class="btn btn-primary">{{ $t("main.All Products") }} </router-link>
 
     </div>
     <div class="row justify-content-center">
@@ -15,7 +15,7 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Update Product</h1>
+                    <h1 class="h4 text-gray-900 mb-4">{{ $t("main.Update Product") }}</h1>
                   </div>
 
                   <form class="user" @submit.prevent="editProduct()" enctype="multipart/form-data">
@@ -24,13 +24,13 @@
                       <div class="form-row">
                         <div class="col-md-6">
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Enter Full Name" v-model="product.name" />
+                          :placeholder="$t('main.Enter')+' '+$t('main.Full Name')" v-model="product.name" />
                           <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Enter Product code" v-model="product.code" />
+                          :placeholder="$t('main.Enter')+' '+$t('main.Product')+' '+$t('main.Code')" v-model="product.code" />
                           <small class="text-danger" v-if="errors.code"> {{ errors.code[0] }} </small>
                         </div>
                       </div>
@@ -40,18 +40,18 @@
                     <div class="form-group">
                       <div class="form-row">
                         <div class="col-md-6">
-                          <label for="exampleFormControlSelect1">Product Category</label>
+                          <label for="exampleFormControlSelect1">{{ $t("main.Product") }} {{ $t("main.Category") }}</label>
                           <select class="form-control" id="exampleFormControlSelect1" v-model="product.category_id">
-                            <option selected :value=null>Choose from here</option>
+                            <option selected :value=null>{{ $t("main.Choose from here") }}</option>
                             <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                           </select>
                           <small class="text-danger" v-if="errors.category_id"> {{ errors.category_id[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
-                          <label for="exampleFormControlSelect1">Product Supplier</label>
+                          <label for="exampleFormControlSelect1">{{ $t("main.Product") }} {{ $t("main.Supplier") }}</label>
                           <select class="form-control" id="exampleFormControlSelect1" v-model="product.supplier_id">
-                            <option selected :value=null>Choose from here</option>
+                            <option selected :value=null>{{ $t("main.Choose from here") }}</option>
                             <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.name }}</option>
                           </select>
                           <small class="text-danger" v-if="errors.supplier_id"> {{ errors.supplier_id[0] }} </small>
@@ -66,20 +66,20 @@
                       <div class="form-row">
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Enter Product Root" v-model="product.root" />
+                          :placeholder="$t('main.Enter')+' '+$t('main.Product')+' '+$t('main.Root')" v-model="product.root" />
                           <small class="text-danger" v-if="errors.root"> {{ errors.root[0] }} </small>
                         </div>
 
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Product Buying Price" v-model="product.buying_price
+                          :placeholder="$t('main.Product')+' '+$t('main.Buying Price')" v-model="product.buying_price
                     " />
                           <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
                         </div>
 
                         <div class="col-md-4">
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Product Selling Price" v-model="product.selling_price
+                            :placeholder="$t('main.Product')+' '+$t('main.Selling Price')" v-model="product.selling_price
                     " />
                           <small class="text-danger" v-if="errors.selling_price"> {{ errors.selling_price[0] }} </small>
                         </div>
@@ -89,17 +89,17 @@
                     <div class="form-group">
                       <div class="form-row">
                         <div class="col-md-6">
-                          <label for="exampleFormControlSelect1">Buying Date</label>
+                          <label for="exampleFormControlSelect1">{{ $t("main.Buying Date") }}</label>
                           <input type="date" class="form-control" id="exampleInputFirstName"
-                            placeholder="Enter Joining Date" v-model="product.buying_date
+                             v-model="product.buying_date
                     " />
                           <small class="text-danger" v-if="errors.buying_date"> {{ errors.buying_date[0] }} </small>
                         </div>
 
                         <div class="col-md-6">
-                          <label for="exampleFormControlSelect1">Product Quantity</label>
+                          <label for="exampleFormControlSelect1">{{ $t("main.Product Quantity")}}</label>
                           <input type="text" class="form-control" id="exampleInputFirstName"
-                            placeholder="Product Quantity" v-model="product.quantity" />
+                          :placeholder="$t('main.Product Quantity')" v-model="product.quantity" />
                           <small class="text-danger" v-if="errors.quantity"> {{ errors.quantity[0] }} </small>
                         </div>
                       </div>
@@ -112,7 +112,7 @@
                         <div class="col-md-6">
                           <input type="file" class="custom-file-input" id="customFile" @change="OnFileSelect">
 
-                          <label class="custom-file-label" for="customFile">Choose file</label>
+                          <label class="custom-file-label" for="customFile">{{ $t("main.Choose file") }}</label>
                         </div>
 
                         <div class="col-md-6">
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block" style="color:#ffffff">Update</button>
+                      <button type="submit" class="btn btn-primary btn-block" style="color:#ffffff">{{ $t("main.Update") }}</button>
                     </div>
 
                   </form>

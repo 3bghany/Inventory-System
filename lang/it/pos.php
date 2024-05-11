@@ -1,0 +1,31 @@
+<?php
+return[
+    'Dashboard' => 'Pannello di controllo',
+    'POS' => 'POS',
+    'Cart' => 'Carrello',
+    'Add Customer' => 'Aggiungi cliente',
+    'Products in the Stock' => 'Prodotti in stock',
+    'All Products' => 'Tutti i prodotti',
+    'Name' => 'Nome',
+    'Qty' => 'Qtà',
+    'Unit' => 'Unità',
+    'Total' => 'Totale',
+    'Action' => 'Azione',
+    'Dropdown' => 'Cadere in picchiata',
+    'Total Quantity' => 'Quantità totale',
+    'Sub Total' => 'Totale parziale',
+    'Vat' => 'I.V.A',
+    'Customer Name' => 'Nome del cliente',
+    'Pay' => 'Paga',
+    'Due' => 'Dovuto',
+    'Pay By' => 'Paga con',
+    'HandCash' => 'Contanti a mano',
+    'Cheaqe' => 'Cheaqe',
+    'GiftCard' => 'Carta regalo',
+    'Add' => 'Aggiungere',
+    'Total Price' => 'Prezzo totale',
+    'View' => 'Visualizzazione',
+    'Unit Price' => 'Prezzo unitario',
+
+]
+?>

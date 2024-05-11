@@ -2,7 +2,7 @@
     <div >
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $t("main.Dashboard") }}</h1>
           </div>
 
           <div class="row mb-3">
@@ -107,6 +107,12 @@ created(){
 
 
 <style>
-
+.recordOverflow {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
 </style>

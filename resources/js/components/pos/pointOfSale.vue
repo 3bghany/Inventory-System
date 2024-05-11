@@ -2,14 +2,14 @@
     <div>
         <div class="container-fluid" id="container-wrapper">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">POS Dashboard</h1>
+                <h1 class="h3 mb-0 text-gray-800">{{ $t("pos.POS") }} {{ $t("main.Dashboard") }}</h1>
             </div>
             <Teleport to="body">
                 <div class="modl" v-if="openModal">
                     <div class="modal-dialog" style="top: 130px;max-width: 600px;">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Add Customer</h5>
+                                <h5 class="modal-title">{{ $t("pos.Add Customer") }}</h5>
                                 <button type="button" class="btn-close" style="font-size: 20px;"
                                     @click="openModal = false,this.customerFormErrors={}"><strong>×</strong></button>
                             </div>
@@ -21,14 +21,14 @@
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Full Name" v-model="form.name">
+                                                    :placeholder="$t('main.Enter')+' '+$t('main.Full Name')" v-model="form.name">
                                                 <small class="text-danger" v-if="customerFormErrors.name"> {{ customerFormErrors.name[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="email" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Email" v-model="form.email">
+                                                    :placeholder="$t('main.Enter')+' '+$t('main.Email')" v-model="form.email">
                                                 <small class="text-danger" v-if="customerFormErrors.email"> {{ customerFormErrors.email[0] }} </small>
                                             </div>
 
@@ -41,14 +41,14 @@
                                         <div class="form-row">
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter Address" v-model="form.address">
+                                                    :placeholder="$t('main.Enter')+' '+$t('main.Address')" v-model="form.address">
                                                 <small class="text-danger" v-if="customerFormErrors.address"> {{ customerFormErrors.address[0] }} </small>
                                             </div>
 
 
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="exampleInputFirstName"
-                                                    placeholder="Enter phone Number" v-model="form.phone">
+                                                    :placeholder="$t('main.Enter')+' '+$t('main.Phone')+' '+$t('main.Number')" v-model="form.phone">
                                                 <small class="text-danger" v-if="customerFormErrors.phone"> {{ customerFormErrors.phone[0] }} </small>
                                             </div>
 
@@ -58,9 +58,9 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" @click="openModal = false,this.customerFormErrors={}"
-                                    style="color: #ffffff;">Close</button>
+                                    style="color: #ffffff;">{{$t('main.Close')}}</button>
                                 <button type="button" class="btn btn-primary" @click="insertCustomer()"
-                                    style="color: #ffffff;">Add</button>
+                                    style="color: #ffffff;">{{$t('pos.Add')}}</button>
                             </div>
                         </div>
                     </div>
@@ -72,10 +72,9 @@
                 <div class="col-xl-5 col-lg-5">
                     <div class="card mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Cart</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">{{$t('pos.Cart')}}</h6>
                             <button type="button" class="btn btn-info" @click="openModal = true"
-                                style="color: #ffffff;">Add
-                                Customer</button>
+                                style="color: #ffffff;">{{$t('pos.Add Customer')}}</button>
                         </div>
                         <div class="table-responsive" style="font-size: 12px;">
                             <table class="table align-items-center table-flush">
@@ -83,11 +82,11 @@
   width: 100%;
   table-layout: fixed;">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Qty</th>
-                                        <th>Unit</th>
-                                        <th>Total</th>
-                                        <th>Action</th>
+                                        <th>{{$t('pos.Name')}}</th>
+                                        <th>{{$t('pos.Qty')}}</th>
+                                        <th>{{$t('pos.Unit')}}</th>
+                                        <th>{{$t('pos.Total')}}</th>
+                                        <th>{{$t('pos.Action')}}</th>
                                     </tr>
                                 </thead>
                                 <tbody style="max-height: 200px;overflow-y: scroll;display: block;">
@@ -116,43 +115,43 @@
                         <div class="card-footer">
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Total Quantity:
+                                    {{$t('pos.Total Quantity')}}:
                                     <strong>{{ total[0] }} </strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Sub Total:
+                                    {{$t('pos.Sub Total')}}:
                                     <strong>{{ total[1] }} $</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Vat:
+                                    {{$t('pos.Vat')}}:
                                     <strong>14%</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Total:
+                                    {{$t('pos.Total')}}:
                                     <strong>{{ total[2] }} $</strong>
                                 </li>
 
                             </ul>
                             <br>
                             <form @submit.prevent="orderDone">
-                                <label>Customer Name</label>
+                                <label>{{$t('pos.Customer Name')}}</label>
                                 <select class="form-control" required v-model="customer_id">
                                     <option :value="Customer.id" v-for="Customer in customers">{{ Customer.name }}
                                     </option>
                                 </select>
-                                <label>Pay</label>
+                                <label>{{$t('pos.Pay')}}</label>
                                 <input type="text" class="form-control" required v-model="pay">
-                                <label>Due</label>
+                                <label>{{$t('pos.Due')}}</label>
                                 <input type="text" class="form-control" v-model="due">
 
-                                <label>Pay By</label>
+                                <label>{{$t('pos.Pay By')}}</label>
                                 <select class="form-control" v-model="payBy">
-                                    <option value="HandCash">Hand cash</option>
-                                    <option value="Cheaqe">Cheaqe</option>
-                                    <option value="GiftCard">Gift card</option>
+                                    <option value="HandCash">{{$t('pos.HandCash')}}</option>
+                                    <option value="Cheaqe">{{$t('pos.Cheaqe')}}e</option>
+                                    <option value="GiftCard">{{$t('pos.GiftCard')}}</option>
                                 </select>
                                 <br>
-                                <button type="submit" class="btn btn-success" style="color:#ffffff">Submit</button>
+                                <button type="submit" class="btn btn-success" style="color:#ffffff">{{$t('main.Submit')}}</button>
                             </form>
                         </div>
                     </div>
@@ -161,24 +160,24 @@
                 <div class="col-xl-7 col-lg-7">
                     <div class="card mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Products in the Stock</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">{{$t('pos.Products in the Stock')}}</h6>
                         </div>
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                    role="tab" aria-controls="pills-home" aria-selected="true">All Products</a>
+                                    role="tab" aria-controls="pills-home" aria-selected="true">{{$t('pos.All Products')}}</a>
                             </li>
-                            <li class="nav-item" v-for="category in categories.slice(0, 5)">
+                            <li class="nav-item" v-for="category in categories.slice(0, 4)">
                                 <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
                                     role="tab" aria-controls="pills-profile" aria-selected="false"
                                     @click="SubProducts(category.id), searchSubProducts = '',catPage = 1">{{ category.name }}</a>
                             </li>
                             <li class="nav-item dropdown" v-if="categories.length>5">
-    <a style="color:black;" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown</a>
+    <a style="color:black;" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{$t('pos.Dropdown')}}</a>
     <div class="dropdown-menu">
       <a id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
         role="tab" aria-controls="pills-profile" class="dropdown-item"
-         v-for="category in categories.slice(5, categories.length)"
+         v-for="category in categories.slice(4, categories.length)"
        @click="SubProducts(category.id), searchSubProducts = '',catPage = 1">{{category.name}}</a>
     </div>
   </li>
@@ -188,7 +187,7 @@
                                 aria-labelledby="pills-home-tab">
                                 <div class="card-body">
                                     <input type="text" v-model="searchAllProducts" class="form-control"
-                                        style="width: 300px;" placeholder="Search Product">
+                                        style="width: 300px;" :placeholder="$t('main.Search here')">
                                     <br>
                                     <div class="text-center" v-if="recordsLength>1">
                                         <v-container>
@@ -213,8 +212,8 @@
                                                     <div class="card-body">
                                                         <h6 class="card-title recordOverflow">{{ product.name }}</h6>
                                                         <span class="badge badge-success recordOverflow"
-                                                            v-if="product.quantity >= 1">Available {{product.quantity }}</span>
-                                                        <span class="badge badge-danger" v-else="">Stock Out</span>
+                                                            v-if="product.quantity >= 1">{{$t('main.Available')}} {{product.quantity }}</span>
+                                                        <span class="badge badge-danger" v-else="">{{$t('main.Stock Out')}}</span>
                                                     </div>
                                                 </div>
                                             </button>
@@ -226,7 +225,7 @@
                                 aria-labelledby="pills-profile-tab">
                                 <div class="card-body">
                                     <input type="text" v-model="searchSubProducts" class="form-control"
-                                        style="width: 300px;" placeholder="Search Product">
+                                        style="width: 300px;" :placeholder="$t('main.Search here')">
                                     <br>
                                     <div class="text-center" v-if="catRecordsLength>1">
                                         <v-container>
@@ -251,9 +250,8 @@
                                                     <div class="card-body">
                                                         <h6 class="card-title recordOverflow">{{ product.name }}</h6>
                                                         <span class="badge badge-success recordOverflow"
-                                                            v-if="product.quantity >= 1">Available {{
-                    product.quantity }}</span>
-                                                        <span class="badge badge-danger " v-else="">Stock Out</span>
+                                                            v-if="product.quantity >= 1">{{$t('main.Available')}} {{product.quantity }}</span>
+                                                        <span class="badge badge-danger " v-else="">{{$t('main.Stock Out')}}</span>
                                                     </div>
                                                 </div>
                                             </button>

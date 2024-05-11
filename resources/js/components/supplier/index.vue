@@ -2,12 +2,12 @@
     <div>
   
   <div class="row" style="position: relative;left: 25px;">
-   <router-link to="/addSupplier" class="btn btn-primary">Add Supplier </router-link>
+   <router-link to="/addSupplier" class="btn btn-primary">{{ $t("main.Add Suplier") }} </router-link>
     
   </div>
   
   <br>
-     <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" placeholder="Search Here">
+     <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" :placeholder=" $t('main.Search here')">
   <br>
   
     <div class="row justify-content-center">
@@ -17,17 +17,17 @@
                 <!-- Simple Tables -->
                 <div class="card">
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Suppliers List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Suppliers List") }}</h6>
                   </div>
                   <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
-                          <th>Name</th>
-                          <th>Photo</th>
-                          <th>Phone</th>
-                          <th>Shop Name</th>
-                          <th>Action</th>
+                          <th>{{ $t("main.Name") }}</th>
+                          <th>{{ $t("main.Photo") }}</th>
+                          <th>{{ $t("main.Phone") }}</th>
+                          <th>{{ $t("main.Shop Name") }}</th>
+                          <th>{{ $t("main.Action") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -37,9 +37,9 @@
                           <td>{{ supplier.phone }}</td>
                           <td>{{ supplier.shopname }}</td>
               <td>
-     <router-link :to="{path:'/editSupplier/'+supplier.id}" class="btn btn-sm btn-primary">Edit</router-link>
+     <router-link :to="{path:'/editSupplier/'+supplier.id}" class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</router-link>
   
-   <a @click="deleteSupplier(supplier.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">Delete</a>
+   <a @click="deleteSupplier(supplier.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">{{ $t("main.Delete") }}</a>
               </td>
                         </tr>
                       

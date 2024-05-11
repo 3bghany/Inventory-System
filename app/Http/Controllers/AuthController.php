@@ -14,13 +14,13 @@ use App\Http\Resources\verifyEmailResource;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\verifyingMail;
 use Illuminate\Support\Facades\Crypt;
-
+use App\Http\Controllers\Api\VerificationEmailController;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register','logout','getUserByToken','verification','getOTP','sendMail']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','logout','getUserByToken','getEmail','sendMail']]);
     }
 
     public function register(Request $request)
@@ -49,47 +49,10 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        return $this->sendOTP($user->email,$user->id);
+        return app(VerificationEmailController::class)->sendMail($request);
 
     }
 
-    public function sendOTP(string $email,int $id){
-        $OTP=rand(100000, 999999);
-
-        Mail::to($email)
-            ->send(new verifyingMail($OTP));
-
-            Verify_email::updateOrCreate(
-                ['email' => $email],
-                ['OTP' => $OTP, 'userId' => $id]);
-
-            return response()->json([
-                'type' => 'verify',
-                'status' => 'warning',
-                'message' => 'Please verify your email',
-                'data' => $id,
-            ], 422);
-    }
-    public function verification(Request $request){
-        $validation = $request->validate([
-            'OTP' => 'required|digits:6',
-        ]);
-        $user= Verify_email::where('email',$request->email)->first();
-
-        if($user->OTP == $request->OTP){
-            User::where('id',$user->userId)->update(['email_verified_at' => Carbon::now()]);
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Email verifyed successfuly',
-                'data' =>$user
-            ], 200);
-        }
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Wrong verification code',
-        ], 422);
-        
-    }
 
     public function login(Request $request)
     {
@@ -156,29 +119,4 @@ class AuthController extends Controller
         ]);
     }
 
-    public function getOTP(int $id){
-        $user=Verify_email::all()->where('userId',$id);
-        return response()->json([
-            'status' => 'success',
-            'message' => "Please verify your account",
-            'data'     =>verifyEmailResource::collection($user),
-        ]);
-    }
-
-    public function sendMail(Request $request){
-        $OTP=rand(100000, 999999);
-
-        Mail::to($request->email)
-            ->send(new verifyingMail($OTP));
-
-            $user=Verify_email::updateOrCreate(
-                ['email' => $request->email],
-                ['OTP' => $OTP, 'userId' => $request->id]);
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'we have sent verification code to your email',
-                'data' => verifyEmailResource::make($user),
-            ]);
-    }
 }

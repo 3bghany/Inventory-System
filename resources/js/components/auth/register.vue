@@ -8,34 +8,34 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Register</h1>
+                    <h1 class="h4 text-gray-900 mb-4">{{ $t("auth.Register") }}</h1>
                   </div>
                   <form @submit.prevent="register">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Full Name" v-model="form.name">
+                      <input type="text" class="form-control" id="exampleInputFirstName" :placeholder="$t('main.Enter')+' '+$t('main.Full Name')" v-model="form.name">
                       <small class="text-danger" v-if="errors.name"> {{ errors.name[0] }} </small>
                     </div>
 
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
-                        placeholder="Enter Email Address" v-model="form.email">
+                      :placeholder="$t('main.Enter')+' '+$t('main.Email')" v-model="form.email">
                       <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" v-model="form.password">
+                      <input type="password" class="form-control" id="exampleInputPassword" :placeholder="$t('main.Password')" v-model="form.password">
                       <small class="text-danger" v-if="errors.password"> {{ errors.password[0] }} </small>
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control" id="exampleInputPasswordRepeat"
-                        placeholder="Confirm Password" v-model="form.password_confirmation">
+                        :placeholder="$t('auth.Confirm Password')" v-model="form.password_confirmation">
                     </div>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block" style="color: #ffffff;">Register</button>
+                      <button type="submit" class="btn btn-primary btn-block" style="color: #ffffff;">{{ $t("auth.Register") }}</button>
                     </div>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <router-link to="/" class="font-weight-bold small" >Already have an account?</router-link>
+                    <router-link to="/" class="font-weight-bold small" >{{ $t("auth.Already have an account?") }}</router-link>
                   </div>
                   <div class="text-center">
                   </div>
@@ -71,19 +71,16 @@ export default{
 methods:{
   register(){
     axios.post('/api/auth/signup',this.form)
-    .then(res =>{
+    .then(response =>{
     this.errors={};
-      Toast.fire({ icon: res.data.status, title: res.data.message});
+      Toast.fire({ icon: response.data.status, title: response.data.message});
+      if(response.data.type == 'verify'){
+      this.$router.push('/verifyEmail/'+response.data.data.id)
+      }
     })
     .catch(error => {
       if(error.response.data.errors)
       this.errors=error.response.data.errors;
-    else
-    this.errors={};
-      if(error.response.data.type == 'verify'){
-        Toast.fire({ icon: error.response.data.status, title: error.response.data.message});
-      this.$router.push('/verifyEmail/'+error.response.data.data)
-      }
     })
   }
 }

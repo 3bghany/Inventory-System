@@ -18,9 +18,9 @@ class OrderDetailsResource extends JsonResource
         return [
             'id' => $this->id,
             'product_id' => $this->product_id ,
-            'product_name' => $this->product_name ,
-            'product_code' => $this->product_code ,
-            'product_photo' => $this->product_photo ,
+            'product_name' => $this->product_name,
+            'product_code' => $this->product_code,
+            'product_photo' => $this->product_photo,
             'order_id' => $this->order_id,
             'product_quantity' => $this->product_quantity,
             'product_price' => $this->product_price,

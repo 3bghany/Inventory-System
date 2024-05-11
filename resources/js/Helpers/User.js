@@ -25,6 +25,9 @@ class User{
     logOut() {
         AppStorage.clear();
     }
+    updateUserName(username){
+        AppStorage.storeUser(username);
+    }
     
 
     

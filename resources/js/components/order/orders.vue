@@ -1,7 +1,7 @@
 <template>
     <div>
   <br>
-  <input type="text" v-model="searchTerm" class="form-control" style="width: 500px;" placeholder="Search by Customer Name, Pay By, Total Price, Date">
+  <input type="text" v-model="searchTerm" class="form-control" style="width: 500px;" :placeholder=" $t('main.Search by')+' '+$t('main.Customer')+' '+$t('main.Name')+', '+$t('pos.Pay By')+', '+$t('pos.Total Price')+', '+$t('main.Date')">
   
   <br>
   
@@ -13,13 +13,13 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Orders</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Orders") }}</h6>
                 </div>
                 <div class="text-center" v-if="recordsLength>1">
     <v-container style="position: absolute;top: -25px;">
       <v-row justify="center">
         <v-col cols="8">
-          <v-container class="max-width">
+          <v-container class="max-width" style="height: 0px;">
             <v-pagination
               v-model="page"
               :length="recordsLength"
@@ -47,22 +47,22 @@
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
-                        <th>Customer Name</th>
-                          <th>Total</th>
-                          <th>Pay</th>
-                          <th>Due</th>
-                          <th>Pay by</th>
-                          <th>Action</th>
+                        <th>{{ $t("pos.Customer Name") }}</th>
+                          <th>{{ $t("pos.Total") }}</th>
+                          <th>{{ $t("pos.Pay") }}</th>
+                          <th>{{ $t("pos.Due") }}</th>
+                          <th>{{ $t("pos.Pay By") }}</th>
+                          <th>{{ $t("main.Action") }}</th>
                       </tr>
                     </thead>
                     <tfoot>
                       <tr>
-                        <th>Customer Name</th>
-                          <th>Total</th>
-                          <th>Pay</th>
-                          <th>Due</th>
-                          <th>Pay by</th>
-                          <th>Action</th>
+                        <th>{{ $t("pos.Customer Name") }}</th>
+                          <th>{{ $t("pos.Total") }}</th>
+                          <th>{{ $t("pos.Pay") }}</th>
+                          <th>{{ $t("pos.Due") }}</th>
+                          <th>{{ $t("pos.Pay By") }}</th>
+                          <th>{{ $t("main.Action") }}</th>
                       </tr>
                     </tfoot>
                     <tbody>
@@ -71,9 +71,9 @@
                           <td> {{ order.total }} </td>
                           <td> {{ order.pay }} </td>
                           <td><span class="recOverflow" style="width: 100px;">{{ order.due }}</span></td>
-                          <td> {{ order.payBy }} </td>
+                          <td> {{ $t('pos.'+order.payBy) }} </td>
               <td>
-     <router-link :to="{path:'/viewOrder/'+order.id}" class="btn btn-sm btn-primary">View</router-link>
+     <router-link :to="{path:'/viewOrder/'+order.id}" class="btn btn-sm btn-primary">{{ $t("pos.View") }}</router-link>
               </td>
                       </tr>
                     </tbody>

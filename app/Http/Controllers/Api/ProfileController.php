@@ -17,20 +17,9 @@ class ProfileController extends Controller
             'phone' => 'required|digits:11',
         ]);
         $user = User::find($id);
-        if (!strcasecmp($user->email, $request->email)) {
-            $validate = $request->validate([
-                'email' => 'required|email',
-            ]);
-        } else {
-            $validate = $request->validate([
-                'email' => 'required|unique:user|email',
-                
-            ]);
-        }
 
 
         $user->name = $request->name;
-        $user->email = $request->email;
         $user->address = $request->address;
         $user->phone = $request->phone;
 
@@ -44,9 +33,9 @@ class ProfileController extends Controller
             ]);
             }
             return response()->json([
-                'status' => 'error',
+                'status' => 'warning',
                 'message' => "you didn't apply any changes",
-                'data' => UserResource::collection(User::all()->where('id',$id)),
+                'data' => 'null',
             ]);
     }   
 }

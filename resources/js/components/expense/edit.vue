@@ -4,7 +4,7 @@
     <div>
   
   <div class="row" style="position: relative;left: 25px;">
-   <router-link to="/expenses" class="btn btn-primary">All Expenses </router-link>
+   <router-link to="/expenses" class="btn btn-primary">{{ $t("main.All Expenses") }} </router-link>
     
   </div>
   
@@ -18,7 +18,7 @@
                <div class="col-lg-12">
                  <div class="login-form">
                    <div class="text-center">
-                     <h1 class="h4 text-gray-900 mb-4">Update Expense</h1>
+                     <h1 class="h4 text-gray-900 mb-4">{{ $t("main.Update Expense") }}</h1>
                    </div>
   
        <form class="user" @submit.prevent="editExpense()" enctype="multipart/form-data">
@@ -27,9 +27,9 @@
   
            <div class="form-row">
              <div class="col-md-12">
-              <label for="exampleInputFirstName" style="margin-right: 10px;"> Expense details  </label>
+              <label for="exampleInputFirstName" style="margin-right: 10px;"> {{ $t("main.Expense") }} {{ $t("main.Details") }} </label>
               <small class="text-danger" v-if="errors.details"> {{ errors.details[0] }} </small>
-          <textarea style="min-height:100px;  max-height:200px;"  maxlength="255" class="form-control" id="exampleInputFirstName" placeholder="Details" v-model="expense.details"></textarea>
+          <textarea style="min-height:100px;  max-height:200px;"  maxlength="255" class="form-control" id="exampleInputFirstName" :placeholder="$t('main.Details')" v-model="expense.details"></textarea>
         
              </div>    
              
@@ -40,10 +40,10 @@
   
            <div class="form-row">
              <div class="col-md-12">
-              <label for="exampleInputFirstName" style="margin-right: 10px;"> Expense Amount  </label>
+              <label for="exampleInputFirstName" style="margin-right: 10px;"> {{ $t("main.Expense") }} {{ $t("main.Amount") }}</label>
           <small class="text-danger" v-if="errors.amount"> {{ errors.amount[0] }} </small>
 
-          <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter the Amount" v-model="expense.amount">
+          <input type="text" class="form-control" id="exampleInputFirstName" :placeholder="$t('main.Enter')+' '+$t('main.Amount')" v-model="expense.amount">
              </div>
   
   
@@ -57,7 +57,7 @@
   
   
          <div class="form-group">
-           <button type="submit" class="btn btn-primary btn-block" style="color:#ffffff">Update</button>
+           <button type="submit" class="btn btn-primary btn-block" style="color:#ffffff">{{ $t("main.Update") }}</button>
          </div>
          
        </form>

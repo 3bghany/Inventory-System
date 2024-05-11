@@ -14,28 +14,28 @@
       <li class="nav-item active">
         <router-link class="nav-link" to="/home">
           <i class="fa-solid fa-house"></i>
-          <span>Dashboard</span></router-link>
+          <span>{{ $t("main.Dashboard") }}</span></router-link>
       </li>
       <li class="nav-item active" style="margin-top: 10px;">
         <router-link class="nav-link" to="/pos">
           <i class="fa-solid fa-cart-plus"></i>
-          <span>POS</span></router-link>
+          <span>{{ $t("pos.POS") }}</span></router-link>
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
-        Features
+        {{ $t("main.FEATURES") }}
       </div>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee"
           aria-expanded="true" aria-controls="collapseEmployee">
           <i class="fa-solid fa-user"></i>
-          <span>Employee</span>
+          <span>{{ $t("main.Employee") }}</span>
         </a>
         <div id="collapseEmployee" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/employees" class="collapse-item" >All Employee</router-link>
-            <router-link to="/addEmployee" class="collapse-item" >Add Employee</router-link>
+            <router-link to="/employees" class="collapse-item" >{{ $t("main.All Employees") }}</router-link>
+            <router-link to="/addEmployee" class="collapse-item" >{{ $t("main.Add Employee") }}</router-link>
           </div>
         </div>
       </li>
@@ -43,13 +43,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplies"
           aria-expanded="true" aria-controls="collapseSupplies">
           <i class="fa-solid fa-user"></i>
-          <span>Supplies</span>
+          <span>{{ $t("main.Suppliers") }}</span>
         </a>
         <div id="collapseSupplies" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/suppliers" class="collapse-item" >All Supplies</router-link>
-            <router-link to="/addSupplier" class="collapse-item" >Add Supplies</router-link>
+            <router-link to="/suppliers" class="collapse-item" >{{ $t("main.All Suppliers") }}</router-link>
+            <router-link to="/addSupplier" class="collapse-item" >{{ $t("main.Add Suplier") }}</router-link>
           </div>
         </div>
       </li>
@@ -58,13 +58,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomers"
           aria-expanded="true" aria-controls="collapseCustomers">
           <i class="fa-solid fa-users"></i>
-          <span>Customers</span>
+          <span>{{ $t("main.Customers") }}</span>
         </a>
         <div id="collapseCustomers" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/Customers" class="collapse-item" >All Customers</router-link>
-            <router-link to="/addCustomer" class="collapse-item" >Add Customer</router-link>
+            <router-link to="/Customers" class="collapse-item" >{{ $t("main.All Customers") }}</router-link>
+            <router-link to="/addCustomer" class="collapse-item" >{{ $t("main.Add Customer") }}</router-link>
           </div>
         </div>
       </li>
@@ -73,13 +73,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories"
           aria-expanded="true" aria-controls="collapseCategories">
           <i class="fa-solid fa-layer-group"></i>
-          <span>Categories</span>
+          <span>{{ $t("main.Categories") }}</span>
         </a>
         <div id="collapseCategories" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/categories" class="collapse-item" >All Categories</router-link>
-            <router-link to="/addCategory" class="collapse-item" >Add Category</router-link>
+            <router-link to="/categories" class="collapse-item" >{{ $t("main.All Categories") }}</router-link>
+            <router-link to="/addCategory" class="collapse-item" >{{ $t("main.Add Category") }}</router-link>
           </div>
         </div>
       </li>
@@ -88,13 +88,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
           aria-expanded="true" aria-controls="collapseProducts">
           <i class="fa-brands fa-product-hunt"></i>
-          <span>Products</span>
+          <span>{{ $t("main.Products") }}</span>
         </a>
         <div id="collapseProducts" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/products" class="collapse-item" >All Products</router-link>
-            <router-link to="/addProduct" class="collapse-item" >Add Product</router-link>
+            <router-link to="/products" class="collapse-item" >{{ $t("main.All Products") }}</router-link>
+            <router-link to="/addProduct" class="collapse-item" >{{ $t("main.Add Product") }}</router-link>
           </div>
         </div>
       </li>
@@ -104,24 +104,22 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExpenses"
           aria-expanded="true" aria-controls="collapseExpenses">
           <i class="far fa-fw fa-window-maximize"></i>
-          <span>Expenses</span>
+          <span>{{ $t("main.Expenses") }}</span>
         </a>
         <div id="collapseExpenses" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/Expenses" class="collapse-item" >All Expenses</router-link>
-            <router-link to="/addExpense" class="collapse-item" >Add Expense</router-link>
+            <router-link to="/Expenses" class="collapse-item" >{{ $t("main.All Expenses") }}</router-link>
+            <router-link to="/addExpense" class="collapse-item" >{{ $t("main.Add Expense") }}</router-link>
           </div>
         </div>
       </li>
-
-      
 
 
       <li class="nav-item">
         <router-link to="/stock" class="nav-link">
           <i class="fa-solid fa-cart-shopping"></i>
-          <span>Stock</span>
+          <span>{{ $t("main.Stock") }}</span>
         </router-link>
       </li>
 
@@ -129,14 +127,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
           aria-expanded="true" aria-controls="collapseOrders">
           <i class="far fa-fw fa-window-maximize"></i>
-          <span>Orders</span>
+          <span>{{ $t("main.Orders") }}</span>
         </a>
         <div id="collapseOrders" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Bootstrap UI</h6> -->
-            <router-link to="/orders" class="collapse-item" >All Orders</router-link>
-            <router-link to="/todayOrders" class="collapse-item" >Today's Orders</router-link>
-            <router-link to="/" class="collapse-item" >Search orders</router-link>
+            <router-link to="/orders" class="collapse-item" >{{ $t("main.All Orders") }}</router-link>
+            <router-link to="/todayOrders" class="collapse-item" >{{ $t("main.Today's Orders") }}</router-link>
           </div>
         </div>
       </li>
@@ -303,6 +300,8 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">View All Taks</a>
               </div>
             </li>
+            
+
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -313,21 +312,31 @@
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <router-link to="/profile" class="dropdown-item">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+                  {{$t('main.Profile')}}
                 </router-link>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
+                <div id="language">
+                <a  class="dropdown-item language" href="#" style="background-color: white;">
+                  <i class="fa-solid fa-language fa-lg mr-2 text-gray-400"></i>
+                  {{$t('main.Languages')}}
+                  <div class="lang">
+                    <a  class="dropdown-item dropdown-content" @click="changeLanguage('en')" href="#">
+                    <span class="fi fi-gb"></span>
+                    English</a>
+                  <a  class="dropdown-item dropdown-content" @click="changeLanguage('es')" href="#">
+                    <span class="fi fi-es"></span>
+                    Española</a>
+                  <a  class="dropdown-item dropdown-content" @click="changeLanguage('it')" href="#">
+                    <span class="fi fi-it"></span>
+                    Italiano</a>
+                  </div>
                 </a>
-                <a href="#" class="dropdown-item" >
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
+                
+              </div>
                 <div class="dropdown-divider"></div>
-                 
+                
                 <router-link to="/logout" class="dropdown-item">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
+                  {{$t('auth.Logout')}}
                 </router-link>
               </div>
             </li>
@@ -341,9 +350,9 @@
 <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>copyright © {{this.date}} - developed by
+            <span>{{ $t("main.copyright") }} © {{this.date}} - {{ $t("main.developed by") }}
               <b>3bghany</b>
-              <p>Do you like this template ? you can download from <a style="color: white;" href="https://github.com/indrijunanda/RuangAdmin"
+              <p>{{ $t("main.Do you like this template ? you can download from") }} <a style="color: white;" href="https://github.com/indrijunanda/RuangAdmin"
                   class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-fw fa-github"></i>&nbsp;GitHub</a></p>
             </span>
           </div>
@@ -366,6 +375,7 @@ export default{
   return{
     Name:'',
     date:'',
+    k:false,
   }
 },
 methods:{
@@ -376,19 +386,27 @@ methods:{
   },
   UserName(){
     this.Name=localStorage.getItem('user');
-  }
+  },
+  changeLanguage(lang){
+    axios.get('/api/language/'+lang)
+        .then(() => {
+          location.reload();
+        })
+        .catch(error => {})
+  },
 }
 }
 
 </script>
 
-<style>
-.recordOverflow {
-  display: block;
-  width: 100px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+<style scoped>
+#language:hover .lang {display: block;}
+.lang{
+  display: none;
+  z-index: 1;
+  position: absolute;
+    background-color: white;
+    right: 158px;
+    top: 40px;
 }
-
 </style>

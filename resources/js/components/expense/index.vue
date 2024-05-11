@@ -2,12 +2,12 @@
     <div>
   
   <div class="row" style="position: relative;left: 25px;">
-   <router-link to="/addExpense" class="btn btn-primary">Add Expense </router-link>
+   <router-link to="/addExpense" class="btn btn-primary">{{ $t("main.Add Expense") }} </router-link>
     
   </div>
   
   <br>
-     <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" placeholder="Search Here">
+     <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" :placeholder="$t('main.Search here') ">
   <br>
   
     <div class="row justify-content-center">
@@ -17,16 +17,16 @@
                 <!-- Simple Tables -->
                 <div class="card">
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Expenses List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Expenses List") }}</h6>
                   </div>
                   <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
-                          <th>Details</th>
-                          <th>Amount</th>
-                          <th>Date</th>
-                          <th>Action</th>
+                          <th>{{ $t("main.Details") }}</th>
+                          <th>{{ $t("main.Amount") }}</th>
+                          <th>{{ $t("main.Date") }}</th>
+                          <th>{{ $t("main.Action") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -35,9 +35,9 @@
                           <td>{{ expense.amount }}</td>
                           <td>{{ expense.expense_date }}</td>
               <td>
-     <router-link :to="{path:'/editExpense/'+expense.id}" class="btn btn-sm btn-primary">Edit</router-link>
+     <router-link :to="{path:'/editExpense/'+expense.id}" class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</router-link>
   
-   <a @click="deleteExpense(expense.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">Delete</a>
+   <a @click="deleteExpense(expense.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">{{ $t("main.Delete") }}</a>
               </td>
                         </tr>
                       

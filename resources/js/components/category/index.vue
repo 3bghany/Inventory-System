@@ -2,7 +2,7 @@
     <div>
   
   <div class="row" style="position: relative;left: 25px;">
-   <router-link to="/addCategory" class="btn btn-primary">Add Category </router-link>
+   <router-link to="/addCategory" class="btn btn-primary">{{ $t("main.Add Category") }} </router-link>
     
   </div>
   
@@ -17,23 +17,23 @@
                 <!-- Simple Tables -->
                 <div class="card">
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Categories List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">{{ $t("main.Categories List") }}</h6>
                   </div>
                   <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                       <thead class="thead-light">
                         <tr>
-                          <th>Name</th>
-                          <th>Action</th>
+                          <th>{{ $t("main.Name") }}</th>
+                          <th>{{ $t("main.Action") }}</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="category in categories" :key="category.id">
                           <td> {{ category.name }} </td>
               <td>
-     <router-link :to="{path:'/editCategory/'+category.id}" class="btn btn-sm btn-primary">Edit</router-link>
+     <router-link :to="{path:'/editCategory/'+category.id}" class="btn btn-sm btn-primary">{{ $t("main.Edit") }}</router-link>
   
-   <a @click="deleteCategory(category.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">Delete</a>
+   <a @click="deleteCategory(category.id)" class="btn btn-sm btn-danger del" style="color: #ffffff;">{{ $t("main.Delete") }}</a>
               </td>
                         </tr>
                       

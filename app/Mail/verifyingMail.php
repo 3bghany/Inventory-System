@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class verifyingMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $OTP;
+    public $OTP,$name;
 
 
     /**
      * Create a new message instance.
      */
-    public function __construct($OTP)
+    public function __construct($OTP,$name)
     {
         $this->OTP=$OTP;
+        $this->name=$name;
     }
 
     /**

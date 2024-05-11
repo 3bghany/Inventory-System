@@ -8,7 +8,7 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Find Your Account</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Reset Your Password</h1>
                   </div>
                   <form class="user">
                     <div class="form-group">

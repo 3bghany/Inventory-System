@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\UserController;
 use App\Mail\verifyingMail;
 use App\Models\Verify_email;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,12 +32,8 @@ Route::group([
 
     Route::post('login', 'App\Http\Controllers\AuthController@login');
     Route::post('signup', 'App\Http\Controllers\AuthController@register');
-    Route::get('logout', 'App\Http\Controllers\AuthController@logout');
+    Route::get('logout', 'App\Http\Controllers\AuthController@logout')->middleware('auth');
     Route::post('findUserByToken', 'App\Http\Controllers\AuthController@getUserByToken');
-
-    Route::post('verify', 'App\Http\Controllers\AuthController@verification');
-
-    Route::get('verifyEmail/{id}','App\Http\Controllers\AuthController@getOTP');
 });
 Route::ApiResource('users', 'App\Http\Controllers\Api\UserController');
 Route::ApiResource('employees', 'App\Http\Controllers\Api\EmployeeController');
@@ -51,6 +50,12 @@ Route::post('salary/pay/{id}', 'App\Http\Controllers\Api\SalaryController@pay');
 Route::get('products/getByCategory/{id}', 'App\Http\Controllers\Api\ProductController@GetProductByCategory');
 
 Route::ApiResource('pos/', 'App\Http\Controllers\Api\PosController');
+
+
+//verify email
+Route::post('verify', 'App\Http\Controllers\Api\VerificationEmailController@verification');
+Route::post('sendVerificationCode', 'App\Http\Controllers\Api\VerificationEmailController@sendMail');
+Route::get('email/{id}','App\Http\Controllers\Api\VerificationEmailController@getEmail');
 
 
 Route::prefix('cart')->group(function(){
@@ -73,21 +78,9 @@ Route::prefix('search')->group(function(){
 //factory
 Route::get('factory/products/{number}', 'App\Http\Controllers\Api\ProductController@fac');
 
-//OTP
-Route::post('sendVerificationCode', 'App\Http\Controllers\AuthController@sendMail');
-
 //profile
 Route::put('updateProfile/{id}', 'App\Http\Controllers\Api\ProfileController@updateProfile');
 
 
-
-//Mail
-// Route::get('/verifyingE-mail', function(){
-//     Mail::to('m.abdelghany.dev@gmail.com')
-//     ->send(new verifyingMail());
-//     return response()->json([
-//         'status' => 'success',
-//         'message' => 'email sent successfully',
-//     ], 203);
-// });
-
+//Localization
+Route::get('language/{lang}', 'App\Http\Controllers\LocalizationController@changeLang');

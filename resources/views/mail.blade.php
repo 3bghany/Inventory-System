@@ -1,4 +1,4 @@
-Hi there this is the inventory web, please do'not share your OTP with any one.
+Hi {{$name}} this is the inventory web, please do'not share your OTP with any one.
 <br>
 sincerly,
 <br>
