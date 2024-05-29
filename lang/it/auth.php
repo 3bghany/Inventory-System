@@ -22,7 +22,7 @@ return [
     'Already have an account?' => 'Hai già un account?',
     'Reset Your Password' => 'Reimposta la tua password',
     'Create an Account' => 'Creare un account',
-    'Remember Me' => 'Ricordati di me',
+    'Remember Me' => 'Ricordati di me per un mese',
     'Logout' => 'Disconnettersi', 
     'Create an Account!' => 'Creare un account!', 
     'Forgotten password?' => 'Password dimenticata?', 

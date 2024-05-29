@@ -77,7 +77,7 @@ return[
     'Suppliers' => 'Proveedores',
     'Supplier' => 'Proveedor',
     'All Suppliers' => 'Todos los proveedores',
-    'Add Suplier' => 'Agregar proveedor',
+    'Add Supplier' => 'Agregar proveedor',
     'Suppliers List' => 'Lista de proveedores',
     'Shop Name' => 'Nombre de tienda',
     'Update Supplier' => 'Actualizar proveedor',

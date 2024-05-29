@@ -73,7 +73,7 @@ return[
     'Suppliers' => 'Fornitori',
     'Supplier' => 'Fornitore',
     'All Suppliers' => 'Tutti i fornitori',
-    'Add Suplier' => 'Aggiungi fornitore',
+    'Add Supplier' => 'Aggiungi fornitore',
     'Suppliers List' => 'Elenco Fornitori',
     'Shop Name' => 'Nome del negozio',
     'Update Supplier' => 'Aggiorna fornitore',

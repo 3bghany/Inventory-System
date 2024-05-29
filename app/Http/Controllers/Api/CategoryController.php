@@ -4,11 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
 
+use App\Services\CategoryService;
+
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -18,28 +28,20 @@ class CategoryController extends Controller
             'status' => 'success',
             'message' => 'All Categories viewed successfully',
             'data' => CategoryResource::collection(Category::all()),
-        ], 203);
+        ]);
     }
 
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validate = $request->validate([
-            'name' => 'required',
-
-        ]);
-        $category = new Category;
-        $category->name = $request->name;
-
-
-        $category->save();
+        $category = $this->categoryService->storeCategory($request);
         return response()->json([
-            'status' => 'true',
+            'status' => 'success',
             'message' => 'category inserted successfully',
-            'data' => CategoryResource::collection(Category::all()->where('id',$category->id))
+            'data' => new CategoryResource($category),
         ]);
     }
 
@@ -56,35 +58,31 @@ class CategoryController extends Controller
             ]);
         }
         return response()->json([
-            'status' => 'success',
-            'message' => 'No such record to show',
+            'status' => 'warning',
+            'message' => 'No such category to show',
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCategoryRequest $request, string $id)
     {
-        $validate = $request->validate([
-            'name' => 'required',
+        
+        $category = Category::findOrFail($id);
+        $updatedCategory = $this->categoryService->updateCategory($category,$request);
 
-        ]);
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->save();
-
-        if($category->wasChanged()){
+        if($updatedCategory->wasChanged()){
             return response()->json([
-                'status' => 'true',
+                'status' => 'success',
                 'message' => 'category updated successfully',
-                'data' => CategoryResource::collection(Category::all()->where('id',$id)),
+                'data' => new CategoryResource($updatedCategory),
             ]);
             }
             return response()->json([
-                'status' => 'false',
+                'status' => 'warning',
                 'message' => "you didn't apply any changes",
-                'data' => CategoryResource::collection(Category::all()->where('id',$id)),
+                'data' => new CategoryResource($updatedCategory),
             ]);
 
     }
@@ -97,13 +95,13 @@ class CategoryController extends Controller
         if(Category::find($id)){
         Category::find($id)->delete();
         return response()->json([
-            'status' => 'true',
-            'message' => 'Product deleted successfully',
+            'status' => 'success',
+            'message' => 'category deleted successfully',
         ]);
     }
     return response()->json([
-        'status' => 'false',
-        'message' => 'No such record to delete',
+        'status' => 'warning',
+        'message' => 'No such category to delete',
     ]);
     }
 
@@ -117,6 +115,6 @@ class CategoryController extends Controller
             ->orWhere('name', 'LIKE', "%" . strtolower($name) . "%")
             ->orWhere('name', 'LIKE', "%" . strtoupper($name) . "%")
             ->get()),
-        ], 200);
+        ]);
     }
 }

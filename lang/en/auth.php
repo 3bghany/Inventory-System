@@ -22,7 +22,7 @@ return [
     'Already have an account?' => 'Already have an account?',
     'Reset Your Password' => 'Reset Your Password',
     'Create an Account' => 'Create an Account',
-    'Remember Me' => 'Remember Me',
+    'Remember Me' => 'Remember Me for a month',
     'Logout' => 'Logout', 
     'Create an Account!' => 'Create an Account!', 
     'Forgotten password?' => 'Forgotten password?', 

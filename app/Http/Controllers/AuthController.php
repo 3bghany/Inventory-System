@@ -3,120 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Verify_email;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use DB;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
-use App\Http\Resources\verifyEmailResource;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\verifyingMail;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Api\VerificationEmailController;
+use Illuminate\Support\Facades\Cookie;
+use App\Http\Requests\SignupRequest;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Session;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    protected $authService;
+    public function __construct(AuthService $authService)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register','logout','getUserByToken','getEmail','sendMail']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','logout','getUserByToken','getCurrentUser']]);
+        $this->authService = $authService;
     }
 
-    public function register(Request $request)
+    public function register(SignupRequest $request)
     {
-        $user=DB::table('users')->where('email',$request->email)->first();
-        if($user){
-            if($user->email_verified_at){
-                return response()->json([
-                    'status' => 'error',
-                    'message' => "email already has been taken",
-                ], 200);
-            }
-            DB::table('users')->where('email',$request->email)->delete();
-        }
-        $validation = $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users|email',
-            'password' => 'required|confirmed|min:8',
-        ]);
-        if (!$validation) {
-            return response()->json($validation->errors(), 202);
-        }
-        
-        $user=User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        return app(VerificationEmailController::class)->sendMail($request);
-
+        $response=$this->authService->register($request);
+        return $response;
     }
 
 
-    public function login(Request $request)
-    {
-        $validation = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        $userRecord=User::where('email',$request->email)->first();
-        
-            if (Auth::attempt([
-                'email' => $request->email,
-                'password' => $request->password,
-            ])) {
-                if ($userRecord->email_verified_at) {
-                    $user = Auth::user();
-                    $token = $user->createToken('api-Application')->plainTextToken;
-                    return $this->respondWithToken($token);
-                }
-                return response()->json([
-                    'type' => 'verify',
-                    'status' => 'warning',
-                    'message' => 'Please verify your email',
-                    'data' =>$userRecord->id,
-                ], 422);
-            } else {
-                return response()->json([
-                    'type' => 'incorrect',
-                    'status' => 'error',
-                    'message' => 'Email or password is incorrect',
-                ],422);
-            }
-            
-
+    public function login(LoginRequest $request)
+    {        
+        $response=$this->authService->login($request);
+        return $response;
     }
 
     public function logout()
     {
-        auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
-    }
+        Auth::user()->tokens()->delete();
 
+        // Clear the cookie
+        $cookie = Cookie::forget('persistent_token');
+
+        return response()->json([
+            'status' =>'success',
+            'message' => 'Logged out successfully'
+            ])->withCookie($cookie);
+    }
     
     public function getUserByToken(Request $request){
         
-        $token = \Laravel\Sanctum\PersonalAccessToken::findToken(Crypt::decryptString($request->token));
+        $token = \Laravel\Sanctum\PersonalAccessToken::findToken(Crypt::decryptString($request->header('Token')));
         $userId = $token->tokenable_id;
         
         return response()->json([
+            'status' =>'success',
             'message' => 'found User',
             'data' => UserResource::collection(User::all()->where('id', $userId)),
         ]);
     }
 
+    public function getCurrentUser(){
+        return response()->json([
+            'status' =>'success',
+            'message' => 'found User',
+            'data' => new UserResource(Auth::user()),
+        ]);
+    }
 
-
-    protected function respondWithToken($token)
+    protected function respondWithToken($token,$rememberMe)
     {
+        Session::put('last_activity', now());
         $token =explode("|",$token)[1];
+        $cookie = cookie('persistent_token', $token, 60 * 24 * 30);
         return response()->json([
             'status' =>'success',
             'message' => 'logged in successfully',
             'access_token' => Crypt::encryptString($token),
             'data' => Auth::user(),
-        ]);
+            'remember me' => $rememberMe,
+        ])->withCookie($cookie);
     }
-
+    
 }

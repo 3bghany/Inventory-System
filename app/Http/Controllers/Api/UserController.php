@@ -23,7 +23,7 @@ class UserController extends Controller
             'status' => 'success',
             'message' => 'All Users viewed successfully',
             'data' => UserResource::collection(User::all()),
-        ], 203);
+        ]);
     }
 
     /**
@@ -34,12 +34,12 @@ class UserController extends Controller
         if(User::find($id)){
             return response()->json([
                 'status' => 'success',
-                'message' => 'employee viewed successfully',
+                'message' => 'user viewed successfully',
                 'data' => UserResource::collection(User::all()->where('id',$id)),
             ]);
         }
         return response()->json([
-            'status' => 'success',
+            'status' => 'warning',
             'message' => 'No such record to show',
             'data' => UserResource::collection(User::all()->where('id',$id)),
         ]);
@@ -52,27 +52,11 @@ class UserController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
+            'phone'=>'nullable|digits_between:10,15',
+            'email'=>'required|email|unique:users,email,'.$id,
         ]);
-        if($request->phone)
-        {
-            $validate = $request->validate([
-                'phone' => 'digits:11',
-            ]);
-        }
 
         $user = User::find($id);
-
-        if (!strcasecmp($user->email, $request->email)) {
-            $validate = $request->validate([
-                'email' => 'required|email',
-            ]);
-        } else {
-            $validate = $request->validate([
-                'email' => 'required|unique:users|email',
-                
-            ]);
-        }
-
         $user->name = $request->name;
         $user->email = $request->email;
         $user->address = $request->address;
@@ -88,7 +72,7 @@ class UserController extends Controller
         ]);
         }
         return response()->json([
-            'status' => 'error',
+            'status' => 'warning',
             'message' => "No Changes applied",
             'data' => UserResource::collection(User::all()->where('id',$id)),
         ]);

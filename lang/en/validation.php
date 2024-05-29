@@ -173,6 +173,10 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'supplier_id.required' => 'Choose one of the Suppliers',
+        'category_id.required' => 'Choose one of the Categories',
+        'password.regex' => 'password must contain (Uppercase,Lowercase,numbers).Allowed symbols( _ - ! @ # )',
+        
     ],
 
     /*
@@ -186,6 +190,29 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'=>'name',
+        'email'=>'email',
+        'address'=>'address',
+        'salary'=>'salary',
+        'phone'=>'phone',
+        'photo'=>'photo',
+        'nid'=>'national ID',
+        'joining_date'=>'joining date',
+        'shopname'=>'shopname',
+        'salary_month'=>'salary month',
+        'category_id'=>'category id',
+        'supplier_id'=>'supplier id',
+        'code'=>'code',
+        'root'=>'root',
+        'buying_price'=>'buying price',
+        'selling_price'=>'selling price',
+        'buying_date'=>'buying date',
+        'quantity'=>'quantity',
+        'details'=>'details',
+        'amount'=>'amount',
+        'password'=>'password',
+        'OTP'=>'OTP',
+    ],
 
 ];

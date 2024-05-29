@@ -6,36 +6,35 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
-use DB;
+use App\Http\Requests\UpdateProfileRequest;
+
+use App\Services\ProfileService;
 
 class ProfileController extends Controller
 {
-    public function updateProfile(Request $request, string $id){
-        $validation = $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required|digits:11',
-        ]);
-        $user = User::find($id);
+    protected $profileService;
 
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+    }
 
-        $user->name = $request->name;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
+    public function updateProfile(UpdateProfileRequest $request, string $id){
 
-        $user->save();
+        $user = User::findOrFail($id);
+        $updatedUser= $this->profileService->updateProfile($user,$request);
 
-        if($user->wasChanged()){
+        if($updatedUser->wasChanged()){
             return response()->json([
                 'status' => 'success',
-                'message' => 'employee updated successfully',
-                'data' => UserResource::collection(User::all()->where('id',$id)),
+                'message' => 'profile updated successfully',
+                'data' => new UserResource($updatedUser),
             ]);
             }
             return response()->json([
                 'status' => 'warning',
                 'message' => "you didn't apply any changes",
-                'data' => 'null',
+                'data' => new UserResource($updatedUser),
             ]);
     }   
 }

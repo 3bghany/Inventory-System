@@ -32,55 +32,62 @@ Route::group([
 
     Route::post('login', 'App\Http\Controllers\AuthController@login');
     Route::post('signup', 'App\Http\Controllers\AuthController@register');
-    Route::get('logout', 'App\Http\Controllers\AuthController@logout')->middleware('auth');
-    Route::post('findUserByToken', 'App\Http\Controllers\AuthController@getUserByToken');
+    Route::post('logout', 'App\Http\Controllers\AuthController@logout')->middleware('auth:sanctum');
+    Route::get('find-user-by-token', 'App\Http\Controllers\AuthController@getUserByToken');
+    Route::get('current-user', 'App\Http\Controllers\AuthController@getCurrentUser');
 });
-Route::ApiResource('users', 'App\Http\Controllers\Api\UserController');
+
+
+Route::middleware(['lastActivity'])->group(function () {
+
+
+// Route::ApiResource('users', 'App\Http\Controllers\Api\UserController');
 Route::ApiResource('employees', 'App\Http\Controllers\Api\EmployeeController');
 Route::ApiResource('suppliers', 'App\Http\Controllers\Api\SupplierController');
 Route::ApiResource('categories', 'App\Http\Controllers\Api\CategoryController');
 Route::ApiResource('products', 'App\Http\Controllers\Api\ProductController');
+Route::get('get-products/{shuffle?}', 'App\Http\Controllers\Api\ProductController@getProducts');
 Route::ApiResource('expenses', 'App\Http\Controllers\Api\ExpenseController');
 Route::ApiResource('customers', 'App\Http\Controllers\Api\CustomerController');
 Route::ApiResource('orders', 'App\Http\Controllers\Api\OrderController');
-Route::get('todayorders', 'App\Http\Controllers\Api\OrderController@TodayOrders');
-Route::ApiResource('orderDetails', 'App\Http\Controllers\Api\OrderDetailsController');
-Route::get('orderDetailsByOrderId/{orderId}', 'App\Http\Controllers\Api\OrderDetailsController@showByOrder');
+Route::get('today-orders', 'App\Http\Controllers\Api\OrderController@todayOrders');
+// Route::ApiResource('order-details', 'App\Http\Controllers\Api\OrderDetailController');
+Route::get('order-details-by-order-id/{orderId}', 'App\Http\Controllers\Api\OrderDetailController@showByOrder');
 Route::post('salary/pay/{id}', 'App\Http\Controllers\Api\SalaryController@pay');
-Route::get('products/getByCategory/{id}', 'App\Http\Controllers\Api\ProductController@GetProductByCategory');
 
-Route::ApiResource('pos/', 'App\Http\Controllers\Api\PosController');
-
-
-//verify email
-Route::post('verify', 'App\Http\Controllers\Api\VerificationEmailController@verification');
-Route::post('sendVerificationCode', 'App\Http\Controllers\Api\VerificationEmailController@sendMail');
-Route::get('email/{id}','App\Http\Controllers\Api\VerificationEmailController@getEmail');
 
 
 Route::prefix('cart')->group(function(){
     // Route::ApiResource('cart/product', 'App\Http\Controllers\Api\CartController');
-    Route::get('AddToCart/{id}', 'App\Http\Controllers\Api\CartController@AddToCart');
-    Route::get('products', 'App\Http\Controllers\Api\CartController@CartProducts');
-    Route::get('delete/{id}', 'App\Http\Controllers\Api\CartController@DeleteProduct');
-    Route::get('increment/{id}', 'App\Http\Controllers\Api\CartController@increaseQuantity');
-    Route::get('decrement/{id}', 'App\Http\Controllers\Api\CartController@decreaseQuantity');
+    Route::post('add/{id}', 'App\Http\Controllers\Api\CartController@addToCart');
+    Route::delete('delete/{id}', 'App\Http\Controllers\Api\CartController@deleteProduct');
+    Route::get('get', 'App\Http\Controllers\Api\CartController@cartProducts');
+    Route::put('increment/{id}', 'App\Http\Controllers\Api\CartController@increaseQuantity');
+    Route::put('decrement/{id}', 'App\Http\Controllers\Api\CartController@decreaseQuantity');
 });
-
-
-Route::post('order', 'App\Http\Controllers\Api\PosController@AddOrder');
 
 // Search Routes
 Route::prefix('search')->group(function(){
     Route::get('suppliers/{name}', 'App\Http\Controllers\Api\SupplierController@search');
     Route::get('categories/{name}', 'App\Http\Controllers\Api\CategoryController@search');
+    //Algolia search
+    Route::get('products/{keyword}', 'App\Http\Controllers\Api\ProductController@search');
 });
-//factory
-Route::get('factory/products/{number}', 'App\Http\Controllers\Api\ProductController@fac');
+
 
 //profile
-Route::put('updateProfile/{id}', 'App\Http\Controllers\Api\ProfileController@updateProfile');
+Route::put('update-profile/{id}', 'App\Http\Controllers\Api\ProfileController@updateProfile');
 
+});
+//end of lastActivity middleware
+
+
+
+//verify email
+Route::post('verify', 'App\Http\Controllers\Api\VerificationEmailController@verification');
+Route::post('send-verification-code', 'App\Http\Controllers\Api\VerificationEmailController@sendMail');
+Route::get('email/{id}','App\Http\Controllers\Api\VerificationEmailController@getEmail');
 
 //Localization
 Route::get('language/{lang}', 'App\Http\Controllers\LocalizationController@changeLang');
+

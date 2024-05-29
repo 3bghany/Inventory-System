@@ -73,7 +73,7 @@ return[
     'Suppliers' => 'Suppliers',
     'Supplier' => 'Supplier',
     'All Suppliers' => 'All Suppliers',
-    'Add Suplier' => 'Add Suplier',
+    'Add Supplier' => 'Add Supplier',
     'Suppliers List' => 'Suppliers List',
     'Shop Name' => 'Shop Name',
     'Update Supplier' => 'Update Supplier',
@@ -146,6 +146,45 @@ return[
     'Page Not Found' => 'Page Not Found',
     'Back to Dashboard' => 'Back to Dashboard',
 
-    "check" => "ايوااا",
-]
+
+//response messages
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+    'message'=>'message',
+
+
+
+
+
+
+    ]
 ?>

@@ -18,15 +18,15 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'category_id' => 2,
+            'name' => fake()->word(),
+            'category_id' => 1,
             'code' => rand(100000, 999999),
             'supplier_id' => null,
             'buying_price' => rand(40, 150),
             'selling_price' => rand(160, 700),
             'buying_date' => '2024-'.rand(1, 12).'-'.rand(1, 30),
             'quantity' => rand(0, 100),
-            'root' => fake()->title(),
+            'root' => fake()->word(),
             'created_at'=> now()
         ];
     }

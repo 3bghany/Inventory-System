@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 
-class verifyingMail extends Mailable
+class VerifyingMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $OTP,$name;
@@ -41,7 +41,7 @@ class verifyingMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail',
+            view: 'verifecation_code_mail',
         );
     }
 
