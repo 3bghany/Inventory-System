@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About The project
+## Technical used in the Project
 
 As Backend web Developer i have developed this project using Laravel & Vue js. also I have used few skills and technologies:
 
@@ -16,4 +16,6 @@ As Backend web Developer i have developed this project using Laravel & Vue js. a
 - Email Verification with OTP(One Time Password)
 - Relational Database
 - Vue-Router
-  
+- Localization (Multi Languages) English,Spanish and Italian.
+
+
